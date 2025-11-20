@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <g fill="none" stroke="#FF6A00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- Face outline -->
+    <path d="M32 10c-6 0-11 6-11 14 0 10 6 18 11 18s11-8 11-18c0-8-5-14-11-14z"/>
+
+    <!-- Hair top curve -->
+    <path d="M17 24c1-10 7-15 15-15s14 5 15 15"/>
+
+    <!-- Long side braid -->
+    <path d="M43 27c4 6 4 12 0 18"/>
+    <path d="M43 45c2 3 2 6 0 9"/>
+
+    <!-- Braid pattern crossings -->
+    <path d="M43 32c-3 2-6 2-9 0"/>
+    <path d="M43 38c-3 2-6 2-9 0"/>
+    <path d="M43 44c-3 2-6 2-9 0"/>
+
+  </g>
+</svg>
