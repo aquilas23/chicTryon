@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import icon from "../assets/logo.svg";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react"; // for hamburger icon (optional)
+import { useNavigate } from "react-router-dom";
 import './Header.css'
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const navigate=useNavigate()
 
   return (
     <header className="px-6 py-1 shadow-md bg-white sticky top-0 z-50">
@@ -12,14 +14,14 @@ const Header = () => {
         {/* Logo */}
         <div className="flex items-center ">
           <img src={icon} alt="logo" width={50} height={50} />
-          <span className="font-semibold text-2xl logo-text text-orange-500">
+          <span className="font-semibold text-2xl logo-text text-orange-500 cursor-pointer" onClick={()=>{navigate("/")}}>
             ChicTryOn
           </span>
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex gap-6 header-text text-gray-500 font-bold text-xs hover:bg-black-500">
-          <NavLink to="/">Home</NavLink>
+        <div className="hidden md:flex gap-6 header-text text-gray-500  font-bold text-xs hover:bg-black-500">
+          {/* <NavLink to="/">Home</NavLink> */}
 
           <NavLink to="/studio">Studio</NavLink>
           <NavLink to="/gallery">Gallery</NavLink>

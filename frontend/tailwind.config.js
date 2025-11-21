@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         heading: ["Poppins", "sans-serif"],
+        homeHeading: ["Montserrat", "sans-serif"],
       },
     },
   },
