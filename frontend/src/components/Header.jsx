@@ -1,87 +1,94 @@
 import React, { useState } from "react";
 import icon from "../assets/logo.svg";
-import { NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react"; // for hamburger icon (optional)
-import { useNavigate } from "react-router-dom";
-import './Header.css'
+import { NavLink, useNavigate } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import "./Header.css";
+
 const Header = () => {
   const [open, setOpen] = useState(false);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   return (
-    <header className="px-6 py-1 shadow-md bg-white sticky top-0 z-50">
-      <div className="flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center ">
+    <header className="px-6 py-2 shadow-md bg-white sticky top-0 z-50">
+      <div className="flex items-center justify-between w-full">
+        {/* LOGO LEFT (no change to style) */}
+        <div
+          className="flex items-center gap-2 cursor-pointer"
+          onClick={() => navigate("/")}
+        >
           <img src={icon} alt="logo" width={50} height={50} />
-          <span className="font-semibold text-2xl logo-text text-orange-500 cursor-pointer" onClick={()=>{navigate("/")}}>
+          <span className="font-semibold text-2xl logo-text text-orange-500 cursor-pointer">
             ChicTryOn
           </span>
         </div>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex gap-6 header-text text-gray-500  font-bold text-xs hover:bg-black-500">
-          {/* <NavLink to="/">Home</NavLink> */}
-
-          <NavLink to="/studio">Studio</NavLink>
-          <NavLink to="/gallery">Gallery</NavLink>
-          <NavLink to="/pricing">Pricing</NavLink>
-          <NavLink to="/test">Test</NavLink>
-        </div>
-
-        {/* Desktop Auth Buttons */}
-        <div className=" hidden md:flex gap-4 text-gray-500 font-bold text-xs header-text">
+        {/* NAVIGATION CENTER */}
+        <nav className="hidden md:flex mx-auto space-x-12 text-sm font-semibold">
           <NavLink
-            className="bg-gray-200  px-3 py-1 text-gray-800 rounded-md  hover:bg-black hover:text-white"
-            to="/login"
+            className={({ isActive }) =>
+              `hover:text-orange-600 transition ${
+                isActive ? "text-orange-600" : "text-gray-600"
+              }`
+            }
+            to="/"
           >
-            Login
+            Home
           </NavLink>
           <NavLink
-            to="/register"
-            className="bg-orange-500  px-3 py-1 text-white rounded-md  hover:bg-orange-600"
+            className={({ isActive }) =>
+              `hover:text-orange-600 transition ${
+                isActive ? "text-orange-600" : "text-gray-600"
+              }`
+            }
+            to="/studio"
           >
-            Sign Up
+            Studio
           </NavLink>
-        </div>
 
-        {/* Mobile Hamburger Button */}
+          <NavLink
+            className={({ isActive }) =>
+              `hover:text-orange-600 transition ${
+                isActive ? "text-orange-600" : "text-gray-600"
+              }`
+            }
+            to="/gallery"
+          >
+            Gallery
+          </NavLink>
+
+          <NavLink
+            className={({ isActive }) =>
+              `hover:text-orange-600 transition ${
+                isActive ? "text-orange-600" : "text-gray-600"
+              }`
+            }
+            to="/inspiration"
+          >
+            Inspiration
+          </NavLink>
+        </nav>
+
+        {/* HAMBURGER FOR MOBILE */}
         <button className="md:hidden" onClick={() => setOpen(!open)}>
-          {open ? <X size={28} /> : <Menu size={28} />}
+          {open ? <X size={26} /> : <Menu size={26} />}
         </button>
       </div>
 
-      {/* Mobile Dropdown Menu */}
+      {/* MOBILE DROPDOWN MENU */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ${
-          open ? "max-h-96 mt-4" : "max-h-0"
+          open ? "max-h-96 mt-3" : "max-h-0"
         }`}
       >
-        <div className="flex flex-col gap-4 text-lg font-medium bg-gray-100 px-4 py-4 rounded-lg header-text text-gray-500 font-bold text-sm">
-          <NavLink to="/" onClick={() => setOpen(false)}>
-            Home
-          </NavLink>
+        <div className="flex flex-col gap-4 bg-gray-100 p-4 rounded-lg text-gray-700 font-semibold text-base">
           <NavLink to="/studio" onClick={() => setOpen(false)}>
             Studio
           </NavLink>
           <NavLink to="/gallery" onClick={() => setOpen(false)}>
             Gallery
           </NavLink>
-          <NavLink to="/pricing" onClick={() => setOpen(false)}>
-            Pricing
-          </NavLink>
-
-          <hr className="border-gray-300" />
-
-          <NavLink to="/login" onClick={() => setOpen(false)}>
-            Login
-          </NavLink>
-          <NavLink
-            to="/register"
-            className="bg-orange-500 text-white px-3 py-2 rounded-md text-center font-semibold"
-            onClick={() => setOpen(false)}
-          >
-            Sign Up
+          <NavLink to="/inspiration" onClick={() => setOpen(false)}>
+            Inspiration
           </NavLink>
         </div>
       </div>

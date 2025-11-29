@@ -1,19 +1,23 @@
-import React from 'react'
-import img from '../images/braids/crochet-braids/front.png'
-import VirtualTryOn from './VirtualTryOn';
-import MainPage from './MainPage';
+import React from "react";
+import MainPage from "./MainPage";
+import VirtualTryOn from "./VirtualTryOn";
+
 const Home = () => {
   return (
-    <div>
-      <div className="px-24 mt-0">
-        <MainPage></MainPage>
+    <div className="w-full">
+      {/* Main hero section */}
+      <div className="px-4 md:px-16 lg:px-24">
+        <MainPage />
       </div>
-      <hr className="border border-300 w-full" />
-      <div className="px-24 mt-0">
-        <VirtualTryOn className="px-24 mt-0"></VirtualTryOn>
+
+      <hr className="border border-gray-700 w-full mt-6" />
+
+      {/* Virtual try-on section */}
+      <div className="px-4 md:px-16 lg:px-24 mt-6 mb-10">
+        <VirtualTryOn />
       </div>
     </div>
   );
-}
+};
 
-export default Home
+export default Home;

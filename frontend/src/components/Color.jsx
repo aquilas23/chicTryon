@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Color = ({ onSelect }) => {
+const Color = ({ selected, onSelect }) => {
   const colors = [
     {
       name: "Natural Black (1)",
@@ -34,15 +34,11 @@ const Color = ({ onSelect }) => {
     },
   ];
 
-  // ✅ Default = None (no color selected)
-  const [selected, setSelected] = useState(null);
-
   const handleSelect = (index) => {
-    setSelected(index);
-
-    // ✅ Send value to parent (Studio.jsx)
-    onSelect && onSelect(colors[index].name);
+    onSelect(colors[index].name); // send value to parent
   };
+
+  const currentIndex = colors.findIndex((c) => c.name === selected);
 
   return (
     <div className="text-white mt-6 flex flex-col items-center">
@@ -52,7 +48,7 @@ const Color = ({ onSelect }) => {
         Select a color that matches your braided style.
       </p>
 
-      {/* ✅ Swatch Grid */}
+      {/* Swatch Grid */}
       <div className="grid grid-cols-3 gap-4">
         {colors.map((item, index) => (
           <div
@@ -60,7 +56,7 @@ const Color = ({ onSelect }) => {
             onClick={() => handleSelect(index)}
             className={`w-16 h-16 rounded-full cursor-pointer border-2 transition-all duration-300
               ${
-                selected === index
+                currentIndex === index
                   ? "scale-110 border-orange-500 shadow-lg"
                   : "border-gray-600 hover:scale-105"
               }`}
@@ -76,12 +72,8 @@ const Color = ({ onSelect }) => {
         ))}
       </div>
 
-      {/* ✅ Selected Text */}
       <p className="mt-6 text-sm text-gray-300 text-center max-w-xs">
-        Selected:{" "}
-        <span className="font-semibold text-white">
-          {selected !== null ? colors[selected].name : "None"}
-        </span>
+        Selected: <span className="font-semibold text-white">{selected}</span>
       </p>
     </div>
   );

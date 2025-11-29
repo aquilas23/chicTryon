@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1764434959990,
+    "before": "https://res.cloudinary.com/dwbvvwtbc/image/upload/v1764434945/virtual_tryon_original/rsle87tfxqb94tsbcwhm.jpg",
+    "after": "https://res.cloudinary.com/dwbvvwtbc/image/upload/v1764434959/virtual_tryon_results/okyvjzfjfazesu1h3vmp.png",
+    "hair": "Havana Twists",
+    "length": "Short",
+    "thickness": "Thin",
+    "color": "Ombre 1B → 27",
+    "accessory": "Hair Shells",
+    "createdAt": "2025-11-29T16:49:19.990Z"
+  },
+  {
+    "id": 1764434222857,
+    "before": "https://res.cloudinary.com/dwbvvwtbc/image/upload/v1764434208/virtual_tryon_original/zngrxtiqugaiuuw1ukdc.jpg",
+    "after": "https://res.cloudinary.com/dwbvvwtbc/image/upload/v1764434222/virtual_tryon_results/iako4yz4ubtwq8jjdcqx.png",
+    "hair": "Faux Locs",
+    "length": "Short",
+    "thickness": "Medium",
+    "color": "Honey Blonde (27)",
+    "accessory": "None",
+    "createdAt": "2025-11-29T16:37:02.857Z"
+  },
+  {
+    "id": 1764432727438,
+    "before": "https://res.cloudinary.com/dwbvvwtbc/image/upload/v1764432715/virtual_tryon_original/t0yvpfl1qzh2kbf2dvut.jpg",
+    "after": "https://res.cloudinary.com/dwbvvwtbc/image/upload/v1764432726/virtual_tryon_results/jhk0kubmaqkni16iqoic.png",
+    "hair": "Twists",
+    "length": "Medium",
+    "thickness": "Thick",
+    "color": "Ombre 1B → 27",
+    "accessory": "Hair Shells",
+    "createdAt": "2025-11-29T16:12:07.438Z"
+  },
+  {
+    "id": 1764420955075,
+    "before": "https://res.cloudinary.com/dwbvvwtbc/image/upload/v1764420941/virtual_tryon_original/e1zhmgkt14jtfwo4si4m.webp",
+    "after": "https://res.cloudinary.com/dwbvvwtbc/image/upload/v1764420954/virtual_tryon_results/vkfvexdj063qz8yj450h.png",
+    "hair": "Knotless Box Braids",
+    "length": "Medium",
+    "thickness": "Medium",
+    "color": "Honey Blonde (27)",
+    "accessory": "None",
+    "createdAt": "2025-11-29T12:55:55.075Z"
+  },
+  {
+    "id": 1764420232636,
+    "before": "https://res.cloudinary.com/dwbvvwtbc/image/upload/v1764420211/virtual_tryon_original/plwavibgvndq60tfvs2h.jpg",
+    "after": "https://res.cloudinary.com/dwbvvwtbc/image/upload/v1764420231/virtual_tryon_results/xfoxofnytnyadfg7lvvh.png",
+    "createdAt": "2025-11-29T12:43:52.636Z"
+  }
+]

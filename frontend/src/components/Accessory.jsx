@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaStar, FaRing, FaRibbon } from "react-icons/fa";
 
-const Accessory = ({ onSelect }) => {
+const Accessory = ({ selected, onSelect }) => {
   const accessories = [
     {
       name: "None",
@@ -25,15 +25,11 @@ const Accessory = ({ onSelect }) => {
     },
   ];
 
-  // ✅ Default selected = None (index 0)
-  const [selected, setSelected] = useState(0);
-
   const handleSelect = (index) => {
-    setSelected(index);
-
-    // ✅ Send value to Studio.jsx
-    onSelect && onSelect(accessories[index].name);
+    onSelect(accessories[index].name); // send name to parent
   };
+
+  const currentIndex = accessories.findIndex((a) => a.name === selected);
 
   return (
     <div className="text-white mt-6 flex flex-col items-center">
@@ -43,18 +39,17 @@ const Accessory = ({ onSelect }) => {
         Select an accessory to enhance your braided style.
       </p>
 
-      {/* ✅ Accessory Cards */}
       <div className="flex gap-4">
         {accessories.map((item, index) => (
           <div
             key={index}
             onClick={() => handleSelect(index)}
             className={`cursor-pointer w-32 h-32 rounded-2xl p-4 flex flex-col justify-center items-center text-center border transition-all duration-300
-              ${
-                selected === index
-                  ? "bg-orange-500 border-orange-300 scale-105 shadow-lg"
-                  : "bg-gray-800 border-gray-600 hover:bg-gray-700"
-              }`}
+            ${
+              currentIndex === index
+                ? "bg-orange-500 border-orange-300 scale-105 shadow-lg"
+                : "bg-gray-800 border-gray-600 hover:bg-gray-700"
+            }`}
           >
             <div className="text-white">{item.icon ? item.icon : "—"}</div>
             <h3 className="mt-2 font-bold text-sm">{item.name}</h3>
@@ -62,12 +57,8 @@ const Accessory = ({ onSelect }) => {
         ))}
       </div>
 
-      {/* ✅ Selected Text */}
       <p className="mt-5 text-sm text-gray-300 max-w-xs text-center">
-        Selected:{" "}
-        <span className="font-semibold text-white">
-          {accessories[selected].name}
-        </span>
+        Selected: <span className="font-semibold text-white">{selected}</span>
       </p>
     </div>
   );

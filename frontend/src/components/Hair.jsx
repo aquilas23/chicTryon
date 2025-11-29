@@ -1,12 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import Braids from "../data/braidData";
 
-const Hair = ({ onSelect }) => {
-  const [selected, setSelected] = useState(null);
-
+const Hair = ({ selected, onSelect }) => {
   const handleSelect = (index) => {
-    setSelected(index);
-    onSelect && onSelect(Braids[index].name);
+    onSelect(Braids[index].name); // Send name string to parent
   };
 
   return (
@@ -18,7 +15,7 @@ const Hair = ({ onSelect }) => {
             onClick={() => handleSelect(ind)}
             className={`w-[11rem] rounded-lg py-2 px-10 text-xs font-semibold font-homeHeading transition-all duration-300
               ${
-                selected === ind
+                selected === val.name
                   ? "bg-gradient-to-r from-orange-500 to-orange-700 text-white scale-105 shadow-lg"
                   : "bg-orange-400 text-gray-800 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-700"
               }`}
@@ -28,12 +25,8 @@ const Hair = ({ onSelect }) => {
         ))}
       </div>
 
-      {/* Selected Text */}
       <p className="mt-5 text-sm text-gray-300 text-center">
-        Selected:{" "}
-        <span className="text-white font-semibold">
-          {selected !== null ? Braids[selected].name : "None"}
-        </span>
+        Selected: <span className="text-white font-semibold">{selected}</span>
       </p>
     </div>
   );

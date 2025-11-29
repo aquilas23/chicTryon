@@ -15,6 +15,8 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import GalleryDetail from "./components/GalleryDetail";
 import Test from "./components/Test";
+import ResultPage from "./components/ResultsPage";
+import Inspiration from "./components/Inspiration";
 
 function App() {
   return (
@@ -23,12 +25,14 @@ function App() {
         <Route path="/" element={<Layout></Layout>}>
           <Route index element={<Home></Home>}></Route>
           <Route path="/studio" element={<Studio></Studio>}></Route>
+          <Route path="/result" element={<ResultPage />} />
           <Route path="/gallery" element={<Gallery></Gallery>}></Route>
           <Route path="/pricing" element={<Pricing></Pricing>}></Route>
           <Route path="/login" element={<Login></Login>}></Route>
           <Route path="/register" element={<Register></Register>}></Route>
           <Route path="/gallery/:id" element={<GalleryDetail />} />
           <Route path="/test" element={<Test></Test>}></Route>
+          <Route path="/inspiration" element={<Inspiration></Inspiration>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

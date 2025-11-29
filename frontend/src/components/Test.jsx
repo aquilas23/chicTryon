@@ -1,5 +1,5 @@
 import React from 'react'
-import img from '../images/braids/bantu-knots/front.png'
+// import img from '../images/braids/bantu-knots/front.png'
 import { useState } from 'react';
 const Test = () => {
     const [onSlider,setOnSlider]=useState(false);
