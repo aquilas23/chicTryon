@@ -9,7 +9,7 @@ const Inspiration = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/inspiration")
+      .get(`${import.meta.env.VITE_API_URL}/api/inspiration`)
       .then((res) => {
         setItems(res.data.reverse());
         setTimeout(() => setLoading(false), 1200); // smooth skeleton timeout

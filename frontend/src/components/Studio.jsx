@@ -112,7 +112,7 @@ const Studio = () => {
       formData.append("image", uploadedImage);
 
       const response = await axios.post(
-        "http://localhost:8000/api/studiodata",
+        `${import.meta.env.VITE_API_URL}/api/studiodata`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -134,6 +134,8 @@ const Studio = () => {
 
   return (
     <div className="px-20 pt-4 ">
+
+      
       <div className="bg-gradient-to-tl from-orange-200 via-black/100 to-black rounded-2xl h-[34rem] w-full shadow-xl relative overflow-hidden">
         <p className="font-homeHeading text-white text-xl text-center font-semibold pt-5">
           Virtual Try On Interface
