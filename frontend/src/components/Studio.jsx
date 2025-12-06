@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import CountUp from "react-countup";
 
 import { studio_header } from "../data/Features";
 import Hair from "./Hair";
@@ -10,6 +12,7 @@ import Thickeness from "./Thickeness";
 import Accessory from "./Accessory";
 import Texture from "./Texture";
 import ImageGeneration from "./ImageGeneration";
+import { GrFormPreviousLink, GrFormNextLink } from "react-icons/gr";
 
 import "./studio.css";
 
@@ -30,18 +33,8 @@ const basePrices = {
   "Crochet Braids": 170,
 };
 
-const thicknessModifier = {
-  Thin: -0.1,
-  Medium: 0,
-  Thick: 0.25,
-};
-
-const lengthAddon = {
-  Short: 0,
-  Medium: 20,
-  Long: 40,
-};
-
+const thicknessModifier = { Thin: -0.1, Medium: 0, Thick: 0.25 };
+const lengthAddon = { Short: 0, Medium: 20, Long: 40 };
 const accessoriesAddon = {
   "Hair Shells": 15,
   "Hair Cuffs": 12,
@@ -52,7 +45,6 @@ const Studio = () => {
   const navigate = useNavigate();
 
   const [activeHeaderIndex, setActiveHeaderIndex] = useState(0);
-
   const [selectedHair, setSelectedHair] = useState("None");
   const [selectedLength, setSelectedLength] = useState("Medium");
   const [selectedThickness, setSelectedThickness] = useState("Medium");
@@ -60,12 +52,9 @@ const Studio = () => {
   const [selectedAccessory, setSelectedAccessory] = useState("None");
 
   const [uploadedImage, setUploadedImage] = useState(null);
-  const [uploadedPreview, setUploadedPreview] = useState(null);
-
   const [estimatedPrice, setEstimatedPrice] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  // PRICE CALCULATOR
   const calculatePrice = () => {
     if (!basePrices[selectedHair]) return 0;
 
@@ -73,14 +62,14 @@ const Studio = () => {
     const thicknessCost = base * (thicknessModifier[selectedThickness] || 0);
     const lengthCost = lengthAddon[selectedLength] || 0;
     const accessoryCost = accessoriesAddon[selectedAccessory] || 0;
-
     const isPremiumColor =
       !selectedColor.includes("Black") && !selectedColor.includes("Brown");
 
     const colorCost = isPremiumColor ? base * 0.1 : 0;
 
-    let final = base + thicknessCost + lengthCost + accessoryCost + colorCost;
-    return Math.round(final);
+    return Math.round(
+      base + thicknessCost + lengthCost + accessoryCost + colorCost
+    );
   };
 
   useEffect(() => {
@@ -93,10 +82,7 @@ const Studio = () => {
     selectedAccessory,
   ]);
 
-  const handleImageUpload = (file, preview) => {
-    setUploadedImage(file);
-    setUploadedPreview(preview);
-  };
+  const handleImageUpload = (file) => setUploadedImage(file);
 
   const handleAIGenerate = async () => {
     if (!uploadedImage) return;
@@ -117,14 +103,13 @@ const Studio = () => {
         { headers: { "Content-Type": "multipart/form-data" } }
       );
 
-    navigate("/result", {
-      state: {
-        before: response.data.before, // Cloudinary URL
-        after: response.data.after, // Cloudinary URL
-        price: estimatedPrice,
-      },
-    });
-
+      navigate("/result", {
+        state: {
+          before: response.data.before,
+          after: response.data.after,
+          price: estimatedPrice,
+        },
+      });
     } catch (err) {
       console.error(err);
     }
@@ -133,98 +118,141 @@ const Studio = () => {
   };
 
   return (
-    <div className="px-20 pt-4 ">
-
-      
-      <div className="bg-gradient-to-tl from-orange-200 via-black/100 to-black rounded-2xl h-[34rem] w-full shadow-xl relative overflow-hidden">
-        <p className="font-homeHeading text-white text-xl text-center font-semibold pt-5">
-          Virtual Try On Interface
-        </p>
-
-        {/* PRICE ESTIMATOR */}
-        {/* PRICE ESTIMATOR */}
-        <div
-          className="absolute top-4 right-4 bg-gray-900/70 backdrop-blur-md px-1 py-1 
-rounded-lg border border-orange-500 shadow-md w-[160px] text-center"
-        >
-          <p className="text-xs text-orange-400 font-semibold tracking-wide">
-            Est. Price
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="px-3 sm:px-6 md:px-16 pt-4"
+    >
+      <div className="bg-gradient-to-tl from-orange-200 via-black to-black rounded-2xl md:h-[34rem] shadow-xl relative overflow-hidden">
+        {/* HEADER + PRICE WRAPPER */}
+        <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-2 sm:gap-4 px-4 pt-4 mb-3">
+          <p className="font-homeHeading text-white text-xl sm:text-2xl md:text-3xl font-bold text-center sm:text-left sm:pl-20">
+            Virtual Try-On Interface
           </p>
-          <h2 className="text-2xl font-extrabold text-white leading-tight mt-1">
-            ${estimatedPrice}
-          </h2>
-          <p className="text-[10px] text-gray-400 mt-1">auto-updated</p>
+
+          <motion.div
+            initial={{ scale: 0.85, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="bg-gray-900/70 backdrop-blur-md px-3 py-2 rounded-lg border border-orange-500 shadow-md text-center w-[140px] sm:w-[160px]"
+          >
+            <p className="text-[10px] sm:text-xs text-orange-400 font-semibold">
+              Est. Price
+            </p>
+            <h2 className="text-xl sm:text-2xl font-extrabold text-white">
+              <CountUp end={estimatedPrice} duration={1} prefix="$" />
+            </h2>
+          </motion.div>
         </div>
 
-        <div className="flex mt-6 h-[30rem]">
+        {/* MAIN LAYOUT */}
+        <div className="flex flex-col md:flex-row md:h-[30rem]">
           {/* LEFT PANEL */}
-          <div className="w-1/2 h-full flex flex-col items-center">
-            <div className="bg-gray-800/60 p-2 rounded-full flex justify-center gap-3 text-sm shadow-lg backdrop-blur-md">
-              {studio_header.map((val, ind) => (
-                <button
-                  key={ind}
-                  onClick={() => setActiveHeaderIndex(ind)}
-                  className={`px-5 py-2 rounded-full font-semibold transition-all duration-300
-                    ${
-                      activeHeaderIndex === ind
-                        ? "bg-gradient-to-r from-orange-500 to-orange-700 text-white scale-105 shadow-lg"
-                        : "text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-gray-600 hover:to-gray-700"
-                    }`}
+          <div className="w-full md:w-2/3 flex flex-col items-center bg-black/20 p-3 relative">
+            {/* TABS */}
+            <motion.div className="flex flex-wrap justify-center items-center gap-2 mb-3">
+              <GrFormPreviousLink
+                onClick={() =>
+                  setActiveHeaderIndex((s) => (s !== 0 ? s - 1 : 4))
+                }
+                size={35}
+                className="text-gray-400 hover:text-orange-600 cursor-pointer"
+              />
+
+              <div className="bg-gray-800/60 p-2 rounded-full flex flex-wrap justify-center gap-2 text-xs sm:text-sm shadow-lg backdrop-blur-md">
+                {studio_header.map((val, ind) => (
+                  <button
+                    key={ind}
+                    onClick={() => setActiveHeaderIndex(ind)}
+                    className={`px-3 sm:px-4 py-1 sm:py-2 rounded-full font-semibold transition-all duration-300 
+                      ${
+                        activeHeaderIndex === ind
+                          ? "bg-gradient-to-r from-orange-500 to-orange-700 text-white scale-105 shadow-lg"
+                          : "text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-gray-600 hover:to-gray-700"
+                      }`}
+                  >
+                    {val}
+                  </button>
+                ))}
+              </div>
+
+              <GrFormNextLink
+                onClick={() =>
+                  setActiveHeaderIndex((s) => (s !== 4 ? s + 1 : 0))
+                }
+                size={35}
+                className="text-gray-400 hover:text-orange-600 cursor-pointer"
+              />
+            </motion.div>
+
+            {/* CONTENT AREA WITH TRANSITIONS */}
+            <div className="w-full flex-1 overflow-y-auto px-4 md:px-10 pb-24 custom-scroll">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeHeaderIndex}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.35 }}
                 >
-                  {val}
-                </button>
-              ))}
+                  {activeHeaderIndex === 0 && (
+                    <Hair selected={selectedHair} onSelect={setSelectedHair} />
+                  )}
+                  {activeHeaderIndex === 1 && (
+                    <Length
+                      selected={selectedLength}
+                      onSelect={setSelectedLength}
+                    />
+                  )}
+                  {activeHeaderIndex === 2 && (
+                    <Thickeness
+                      selected={selectedThickness}
+                      onSelect={setSelectedThickness}
+                    />
+                  )}
+                  {activeHeaderIndex === 3 && (
+                    <Color
+                      selected={selectedColor}
+                      onSelect={setSelectedColor}
+                    />
+                  )}
+                  {activeHeaderIndex === 4 && (
+                    <Accessory
+                      selected={selectedAccessory}
+                      onSelect={setSelectedAccessory}
+                    />
+                  )}
+                  {activeHeaderIndex === 5 && <Texture />}
+                </motion.div>
+              </AnimatePresence>
             </div>
 
-            <div className="w-full h-full mt-6 overflow-y-auto px-10">
-              {activeHeaderIndex === 0 && (
-                <Hair selected={selectedHair} onSelect={setSelectedHair} />
-              )}
-              {activeHeaderIndex === 1 && (
-                <Length
-                  selected={selectedLength}
-                  onSelect={setSelectedLength}
-                />
-              )}
-              {activeHeaderIndex === 2 && (
-                <Thickeness
-                  selected={selectedThickness}
-                  onSelect={setSelectedThickness}
-                />
-              )}
-              {activeHeaderIndex === 3 && (
-                <Color selected={selectedColor} onSelect={setSelectedColor} />
-              )}
-              {activeHeaderIndex === 4 && (
-                <Accessory
-                  selected={selectedAccessory}
-                  onSelect={setSelectedAccessory}
-                />
-              )}
-              {activeHeaderIndex === 5 && <Texture />}
-            </div>
-          </div>
-
-          {/* RIGHT PANEL */}
-          <div className="w-1/2 h-full relative flex justify-center items-center p-4">
-            <ImageGeneration onImageUpload={handleImageUpload} />
-
+            {/* CTA BUTTON */}
             <button
               onClick={handleAIGenerate}
               disabled={!uploadedImage || loading}
-              className={`absolute bottom-6 px-10 py-3 font-bold rounded-xl shadow-lg transition-all duration-300
+              className={`sticky bottom-3 w-[65%] md:w-[45%] mt-3 py-2 px-4 rounded-full text-sm font-semibold shadow transition-all duration-300 text-center
                 ${
                   uploadedImage
-                    ? "bg-gradient-to-r from-orange-600 to-orange-500 text-white hover:scale-105"
-                    : "bg-gray-700 text-gray-400 cursor-not-allowed"
+                    ? "bg-orange-500 hover:bg-orange-600 text-white"
+                    : "bg-gray-600 text-gray-300 cursor-not-allowed"
                 }`}
             >
-              {loading ? "Generating..." : "Generate AI Image"}
+              {loading ? "Please wait…" : "Generate AI Image"}
             </button>
           </div>
+
+          {/* RIGHT PANEL */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.35 }}
+            className="w-full md:w-1/3 flex justify-center items-center p-4 bg-black/20"
+          >
+            <ImageGeneration onImageUpload={setUploadedImage} />
+          </motion.div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

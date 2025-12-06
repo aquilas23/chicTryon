@@ -26,33 +26,35 @@ const Accessory = ({ selected, onSelect }) => {
   ];
 
   const handleSelect = (index) => {
-    onSelect(accessories[index].name); // send name to parent
+    onSelect(accessories[index].name);
   };
 
   const currentIndex = accessories.findIndex((a) => a.name === selected);
 
   return (
-    <div className="text-white mt-6 flex flex-col items-center">
-      <p className="text-xl font-semibold mb-6">Choose Accessory</p>
+    <div className="text-white mt-6 flex flex-col items-center w-full">
+      <p className="text-xl font-semibold mb-4">Choose Accessory</p>
 
-      <p className="text-xs text-gray-400 mb-4 text-center">
+      <p className="text-xs text-gray-400 mb-4 text-center px-4">
         Select an accessory to enhance your braided style.
       </p>
 
-      <div className="flex gap-4">
+      {/* Responsive layout container */}
+      <div className="flex flex-wrap justify-center gap-4 w-full px-2">
         {accessories.map((item, index) => (
           <div
             key={index}
             onClick={() => handleSelect(index)}
-            className={`cursor-pointer w-32 h-32 rounded-2xl p-4 flex flex-col justify-center items-center text-center border transition-all duration-300
-            ${
-              currentIndex === index
-                ? "bg-orange-500 border-orange-300 scale-105 shadow-lg"
-                : "bg-gray-800 border-gray-600 hover:bg-gray-700"
-            }`}
+            className={`cursor-pointer min-w-[120px] sm:min-w-[140px] md:min-w-[150px] 
+              h-32 rounded-2xl p-4 flex flex-col justify-center items-center text-center border transition-all duration-300
+              ${
+                currentIndex === index
+                  ? "bg-orange-500 border-orange-300 scale-105 shadow-lg"
+                  : "bg-gray-800 border-gray-600 hover:bg-gray-700"
+              }`}
           >
-            <div className="text-white">{item.icon ? item.icon : "—"}</div>
-            <h3 className="mt-2 font-bold text-sm">{item.name}</h3>
+            <div className="text-white mb-1">{item.icon ? item.icon : "—"}</div>
+            <h3 className="font-bold text-sm">{item.name}</h3>
           </div>
         ))}
       </div>

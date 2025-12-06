@@ -127,7 +127,7 @@ const BRAIDS = [
   },
   {
     id: "knotless-box-braids",
-    name: "Knotless Box Braids",
+    name: "Knotless Box ",
     description:
       "Knot-free braiding method that gives a natural, lightweight finish.",
     images: {
