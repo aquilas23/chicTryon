@@ -16,7 +16,7 @@ const Gallery = () => {
   // SIMULATED LOADER
   useEffect(() => {
     setLoading(true);
-    const timeout = setTimeout(() => setLoading(false), 1200);
+    const timeout = setTimeout(() => setLoading(false), 800);
     return () => clearTimeout(timeout);
   }, [selectedFilter]);
 

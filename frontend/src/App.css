@@ -1,7 +1,8 @@
 
 
 :root{
-    --logo-text: "Dancing Script", cursive;
+    /* --logo-text: "Dancing Script", cursive; */
+     --logo-text: monospace;
     --text-1:  "Zalando Sans SemiExpanded", sans-serif;
     
 }

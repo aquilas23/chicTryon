@@ -15,6 +15,7 @@ import ImageGeneration from "./ImageGeneration";
 import { GrFormPreviousLink, GrFormNextLink } from "react-icons/gr";
 
 import "./studio.css";
+import { useSelector } from "react-redux";
 
 const basePrices = {
   "Box Braids": 180,
@@ -54,6 +55,8 @@ const Studio = () => {
   const [uploadedImage, setUploadedImage] = useState(null);
   const [estimatedPrice, setEstimatedPrice] = useState(0);
   const [loading, setLoading] = useState(false);
+  const user=useSelector(state=>state.auth.user)
+  console.log(user);
 
   const calculatePrice = () => {
     if (!basePrices[selectedHair]) return 0;
@@ -85,33 +88,39 @@ const Studio = () => {
   const handleImageUpload = (file) => setUploadedImage(file);
 
   const handleAIGenerate = async () => {
-    if (!uploadedImage) return;
-    setLoading(true);
-
-    try {
-      const formData = new FormData();
-      formData.append("hair", selectedHair);
-      formData.append("length", selectedLength);
-      formData.append("thickness", selectedThickness);
-      formData.append("color", selectedColor);
-      formData.append("accessory", selectedAccessory);
-      formData.append("image", uploadedImage);
-
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/studiodata`,
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
-
-      navigate("/result", {
-        state: {
-          before: response.data.before,
-          after: response.data.after,
-          price: estimatedPrice,
-        },
-      });
-    } catch (err) {
-      console.error(err);
+    
+    if(user){
+      if (!uploadedImage) return;
+      setLoading(true);
+      
+      try {
+        const formData = new FormData();
+        formData.append("hair", selectedHair);
+        formData.append("length", selectedLength);
+        formData.append("thickness", selectedThickness);
+        formData.append("color", selectedColor);
+        formData.append("accessory", selectedAccessory);
+        formData.append("image", uploadedImage);
+        
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_URL}/api/studiodata`,
+          formData,
+          { headers: { "Content-Type": "multipart/form-data" } }
+        );
+        
+        navigate("/result", {
+          state: {
+            before: response.data.before,
+            after: response.data.after,
+            price: estimatedPrice,
+          },
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    else{
+      navigate("/login",{state:{message:"Please login to complete the action"}});
     }
 
     setLoading(false);

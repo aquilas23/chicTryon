@@ -1,13 +1,14 @@
-import React from 'react'
-import Header from './Header'
-import { Outlet } from 'react-router-dom'
+// src/components/Layout.jsx
+import { Outlet } from "react-router-dom";
+import Header from "./Header";
+
 const Layout = () => {
   return (
-    <div className=' '>
-        <Header></Header>
-        <Outlet></Outlet>
+    <div className="relative min-h-screen">
+      <Header />
+      <Outlet />
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

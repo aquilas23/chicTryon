@@ -1,10 +1,5 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./index.css"
-import "./App.css";
-import Header from "./components/Header";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+// src/App.jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./components/Home";
 import Studio from "./components/Studio";
@@ -17,23 +12,33 @@ import GalleryDetail from "./components/GalleryDetail";
 import Test from "./components/Test";
 import ResultPage from "./components/ResultsPage";
 import Inspiration from "./components/Inspiration";
+import SignUp from "./components/SignUp";
+import My_gallery from "./components/My_gallery";
+import Settings from "./components/Settings";
+
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout></Layout>}>
-          <Route index element={<Home></Home>}></Route>
-          <Route path="/studio" element={<Studio></Studio>}></Route>
+        {/* ROUTES WITH HEADER */}
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/studio" element={<Studio />} />
           <Route path="/result" element={<ResultPage />} />
-          <Route path="/gallery" element={<Gallery></Gallery>}></Route>
-          <Route path="/pricing" element={<Pricing></Pricing>}></Route>
-          <Route path="/login" element={<Login></Login>}></Route>
-          <Route path="/register" element={<Register></Register>}></Route>
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/gallery/:id" element={<GalleryDetail />} />
-          <Route path="/test" element={<Test></Test>}></Route>
-          <Route path="/inspiration" element={<Inspiration></Inspiration>}></Route>
+          <Route path="/test" element={<Test />} />
+          <Route path="/inspiration" element={<Inspiration />} />
+          <Route path="/my-gallery" element={<My_gallery></My_gallery>}></Route>
+          <Route path="/settings" element={<Settings></Settings>}> </Route>
         </Route>
+
+        {/* SIGNUP MODAL ROUTE (outside layout content) */}
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   );
