@@ -16,7 +16,6 @@ import SignUp from "./components/SignUp";
 import My_gallery from "./components/My_gallery";
 import Settings from "./components/Settings";
 
-
 function App() {
   return (
     <BrowserRouter>
@@ -34,11 +33,13 @@ function App() {
           <Route path="/test" element={<Test />} />
           <Route path="/inspiration" element={<Inspiration />} />
           <Route path="/my-gallery" element={<My_gallery></My_gallery>}></Route>
-          <Route path="/settings" element={<Settings></Settings>}> </Route>
+          <Route path="/settings" element={<Settings></Settings>}>
+            {" "}
+          </Route>
+          <Route path="/signup" element={<SignUp />} />
         </Route>
 
         {/* SIGNUP MODAL ROUTE (outside layout content) */}
-        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   );
