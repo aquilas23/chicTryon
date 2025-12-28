@@ -1,0 +1,141 @@
+.gallery-main{
+  background:white;
+  min-height:100vh;
+  padding:50px 6%;
+}
+
+.gallery-heading{
+  text-align:center;
+  font-size:36px;
+  font-weight:800;
+  color:#ff7a00;
+  margin-bottom:30px;
+}
+
+/* Grid Layout */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(250px, 1fr));
+  gap:25px;
+}
+
+/* Image Card */
+.gallery-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:15px;
+  background:#fff;
+  box-shadow:0 6px 20px rgba(0,0,0,0.08);
+  cursor:pointer;
+  transition:transform .25s;
+}
+
+.gallery-card:hover{
+  transform:scale(1.03);
+}
+
+.gallery-photo{
+  width:100%;
+  height:300px;
+  border-radius:15px;
+  object-fit:cover;
+  transition:.25s;
+}
+
+.gallery-card:hover .gallery-photo{
+  filter:brightness(.75);
+}
+
+/* Hover overlay */
+.gallery-hover{
+  position:absolute;
+  bottom:0; width:100%;
+  padding:10px;
+  text-align:center;
+  background:rgba(0,0,0,.55);
+  color:white;
+  font-size:15px;
+  opacity:0;
+  transition:.3s;
+}
+
+.gallery-card:hover .gallery-hover{
+  opacity:1;
+}
+
+/* Skeleton Loading */
+.skeleton-box{
+  height:300px;
+  border-radius:15px;
+  background:#e6e6e6;
+  animation:skeletonLoading 1.5s infinite;
+}
+
+@keyframes skeletonLoading {
+  0%{opacity:.6}
+  50%{opacity:.3}
+  100%{opacity:.6}
+}
+
+/* ❗ Fullscreen modal */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:50;
+}
+
+.modal-content{
+  background:white;
+  width:90%; max-width:750px;
+  padding:25px;
+  border-radius:18px;
+  animation:pop .25s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.9); opacity:0;}
+  to{transform:scale(1); opacity:1;}
+}
+
+/* modal text & buttons */
+.close-btn{
+  float:right;
+  font-size:18px;
+  background:#ff4b4b;
+  color:white;
+  padding:4px 10px;
+  border-radius:6px;
+  border:none;
+  cursor:pointer;
+}
+
+.modal-heading{
+  font-size:20px;
+  font-weight:700;
+  color:#ff7a00;
+  margin-bottom:12px;
+}
+
+.sub-head{
+  font-size:15px;
+  font-weight:600;
+  margin-top:15px;
+  color:#333;
+}
+
+.modal-img{
+  width:100%;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+
+.empty-text{
+  text-align:center;
+  color:#666;
+  font-size:18px;
+  padding-top:40px;
+}

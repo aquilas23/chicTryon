@@ -3,6 +3,7 @@ const path = require("path");
 const fetch = require("node-fetch");
 const cloudinary = require("../utils/cloudinary")
 const Replicate = require("replicate");
+const {Gallery}=require('../models/GalleryModel')
 const { buildFluxPrompt } = require("../utils/promptBuilder");
 
 const inspirationFilePath = path.join(__dirname, "../data/inspiration.json");
@@ -85,6 +86,25 @@ const StudioController = async (req, res) => {
 
     history.unshift(newRecord);
     fs.writeFileSync(inspirationFilePath, JSON.stringify(history, null, 2));
+
+    console.log(req.user);
+    const newImg = await Gallery.create({
+      userId: req.user,
+      originalImg: {
+        url: uploadedOriginal.url,
+        public_id: uploadedOriginal.public_id,
+      },
+      generatedImg:{
+        url:uploadedGenerated.url,
+        public_id:uploadedGenerated.public_id,
+      }
+    });
+
+
+
+    console.log(uploadedOriginal)
+    console.log(uploadedGenerated)
+
 
     return res.json({
       success: true,

@@ -55,7 +55,7 @@ const Studio = () => {
   const [uploadedImage, setUploadedImage] = useState(null);
   const [estimatedPrice, setEstimatedPrice] = useState(0);
   const [loading, setLoading] = useState(false);
-  const user=useSelector(state=>state.auth.user)
+  const user = useSelector((state) => state.auth);
   console.log(user);
 
   const calculatePrice = () => {
@@ -88,11 +88,10 @@ const Studio = () => {
   const handleImageUpload = (file) => setUploadedImage(file);
 
   const handleAIGenerate = async () => {
-    
-    if(user){
+    if (user) {
       if (!uploadedImage) return;
       setLoading(true);
-      
+
       try {
         const formData = new FormData();
         formData.append("hair", selectedHair);
@@ -101,13 +100,19 @@ const Studio = () => {
         formData.append("color", selectedColor);
         formData.append("accessory", selectedAccessory);
         formData.append("image", uploadedImage);
-        
+
         const response = await axios.post(
           `${import.meta.env.VITE_API_URL}/api/studiodata`,
           formData,
-          { headers: { "Content-Type": "multipart/form-data" } }
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: user.token,
+            },
+            // Authorization: user.token,
+          }
         );
-        
+
         navigate("/result", {
           state: {
             before: response.data.before,
@@ -118,9 +123,10 @@ const Studio = () => {
       } catch (err) {
         console.error(err);
       }
-    }
-    else{
-      navigate("/login",{state:{message:"Please login to complete the action"}});
+    } else {
+      navigate("/login", {
+        state: { message: "Please login to complete the action" },
+      });
     }
 
     setLoading(false);

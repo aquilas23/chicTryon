@@ -16,7 +16,7 @@ const {auth}=require("../middleware/jwt")
 const upload = multer({ dest: "uploads/" });
 
 
-router.post("/studiodata", upload.single("image"), StudioController);
+router.post("/studiodata", upload.single("image"),auth, StudioController);
 router.get("/inspiration", getInspiration);
 router.post("/signup", SignUpController);
 router.post("/login", LoginController);
